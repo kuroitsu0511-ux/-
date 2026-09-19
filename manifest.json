@@ -1,0 +1,26 @@
+{
+  "background_color": "rgb(221, 198, 163)",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "smart memos",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "smart memos",
+  "start_url": "/",
+  "theme_color": "rgb(221, 198, 163)",
+  "icons": [
+    {
+      "src": "https://placehold.co/192x192/4f46e5/ffffff?text=📅",
+      "isSquare": false,
+      "isPng": false,
+      "isWebp": false,
+      "isJpg": false,
+      "width": 0,
+      "is512x512": false,
+      "is256x256": false,
+      "is192x192": false
+    }
+  ],
+  "id": "https://kuroitsu0511-ux.github.io/-/",
+  "description": "This is an AI smart scheduler app that lets you easily manage your schedule just by speaking."
+}
