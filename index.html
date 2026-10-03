@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Smart Memos (AIスマートスケジューラー)</title>
 
-    <!-- マニフェストとアイコンの読み込み（ここにまとめる） -->
+    <!-- マニフェストとアイコンの読み込み -->
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="icon-152.png">
 
@@ -14,7 +14,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <link rel="apple-touch-icon" href="https://placehold.co/192x192/4f46e5/ffffff?text=📅">
 
     <style>
         body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
@@ -241,38 +240,6 @@
         };
 
         window.onload = function() {
-            // ご提示いただいたマニフェスト設定を動的に生成して適用（単一ファイル対応）
-            const manifestData = {
-              "background_color": "#f3c456",
-              "dir": "ltr",
-              "display": "fullscreen",
-              "name": "Smart Memos",
-              "orientation": "any",
-              "scope": "/",
-              "short_name": "Memo books",
-              "start_url": "/",
-              "theme_color": "#f3c456",
-              "icons": [
-                {
-                  "src": "https://placehold.co/192x192/f3c456/ffffff?text=📅",
-                  "sizes": "192x192",
-                  "type": "image/png"
-                },
-                {
-                  "src": "https://placehold.co/512x512/f3c456/ffffff?text=📅",
-                  "sizes": "512x512",
-                  "type": "image/png"
-                }
-              ],
-              "description": "This is an AI smart scheduler app that lets you easily manage your schedule just by speaking.",
-              "lang": "ja"
-            };
-            const stringManifest = JSON.stringify(manifestData);
-            const blob = new Blob([stringManifest], { type: 'application/json' });
-            const manifestURL = URL.createObjectURL(blob);
-            const manifestEl = document.getElementById('dynamicManifest');
-            if (manifestEl) manifestEl.setAttribute('href', manifestURL);
-
             appendChatMessage("どんな予定を入れる？（例:「明日の14時にカフェ」「毎週火曜19時に塾」）", "ai");
             renderEvents();
             calculateFreeTime();
@@ -356,7 +323,6 @@
                 if (ev.repeat === 'weekly') icsContent += "RRULE:FREQ=WEEKLY\r\n";
                 if (ev.repeat === 'monthly') icsContent += "RRULE:FREQ=MONTHLY\r\n";
 
-                // カレンダー側のアラーム（VALARM）として通知タイミングを設定
                 if (ev.notificationTimings && ev.notificationTimings.length > 0) {
                     ev.notificationTimings.forEach(minutes => {
                         icsContent += "BEGIN:VALARM\r\n";
@@ -388,7 +354,7 @@
             link.click();
             document.body.removeChild(link);
 
-            showNotification('📅 .icsをダウンロードしました', 'ダウンロードされたファイルをタップして、スマホのカレンダーアプリ（AppleカレンダーやGoogleカレンダー等）にインポートしてください。設定した通知タイミングもカレンダーに反映されます！', '✅');
+            showNotification('📅 .icsをダウンロードしました', 'ダウンロードされたファイルをタップして、スマホのカレンダーアプリにインポートしてください！', '✅');
         }
 
         function saveSettings() {
@@ -431,7 +397,6 @@
                 console.error('Speech recognition error:', event.error);
                 isRecognizing = false;
                 updateMicUI(false);
-                showNotification('🎙️ 音声入力エラー', '音声認識でエラーが発生しました: ' + event.error, '⚠️');
             };
 
             rec.onend = function() {
